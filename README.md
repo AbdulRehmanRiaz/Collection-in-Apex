@@ -38,6 +38,9 @@ Data entered in form is added to collection <br>
 Uses APEX_COLLECTION.ADD_MEMBER <br>
 add to colelction query is added to code folder in this repositry <br>
 
+<img src="images/add%20collection.png" width="700"/>
+
+
 3️⃣ **Collection Report (View Data)**
 Displays all collection data<br>
 Includes: <br>
@@ -56,6 +59,7 @@ update colelction query is added to code folder in this repositry<br>
 
 <img src="images/collection%20edit%20form%20and%20report.png" width="700"/><br>
 <img src="images/collection%20update%20dynamic%20action.png" width="700"/>
+<img src="images/update%20collection.png" width="700"/>
 
 
 5️⃣ Delete Collection Member
@@ -65,20 +69,28 @@ delete colelction query is added to code folder in this repositry<br>
 
 <img src="images/collection%20delete.png" width="700"/><br>
 <img src="images/collection%20delete%20dynamic%20action.png" width="700"/>
+<img src="images/delete%20collection.png" width="700"/>
+
 
 6️⃣ Save Data to Table
 All collection records are inserted into database table<br>
 Collection is cleared after save<br>
 save to table query is added to code folder in this repositry<br>
 
+<img src="images/save%20collection%20data%20to%20table.png" width="700"/>
+
+
 7️⃣ Final Table Report
 Displays saved data from database<br>
 Image is also viewable<br>
 
-<img src="images/collection%20validations%20and%20processes.png" width="700"/>
+<img src="images/emp%20table%20report.png" width="700"/>
+
 
 8️⃣ Validations
 Implemented NOT NULL validations on:<br>
 Employee Name<br>
 Job<br>
 Salary<br>
+<img src="images/collection%20validations%20and%20processes.png" width="700"/>
+
