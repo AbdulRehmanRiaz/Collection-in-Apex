@@ -1,0 +1,30 @@
+DECLARE
+    -- Cursor to fetch data from APEX collection
+    CURSOR c_emp_data IS
+        SELECT 
+            C001 AS empno,
+            C002 AS ename,
+            C003 AS job,
+            C004 AS sal,
+            C005 AS edit,
+            C006 AS del,
+            C007 AS file_name,
+            C008 AS mime_type,
+            blob001 AS image_blob
+        FROM 
+            APEX_COLLECTIONS 
+        WHERE 
+            COLLECTION_NAME = 'EMPLOYEE_COLLECTION';
+BEGIN
+    -- Loop through the cursor and insert into EMP table
+    FOR emp_rec IN c_emp_data LOOP
+        INSERT INTO emp (empno, ename, job, sal, file_name, mime_type, image_blob)
+        VALUES (emp_rec.empno, emp_rec.ename, emp_rec.job, emp_rec.sal, emp_rec.file_name, emp_rec.mime_type, emp_rec.image_blob);
+    END LOOP;
+    
+    -- Commit the transaction
+    COMMIT;
+    
+    -- Clear the APEX collection after insertion
+    apex_collection.delete_collection('EMPLOYEE_COLLECTION');
+END;
