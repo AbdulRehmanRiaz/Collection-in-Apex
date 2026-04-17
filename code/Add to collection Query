@@ -1,0 +1,48 @@
+BEGIN
+    IF NOT apex_collection.collection_exists('EMPLOYEE_COLLECTION') THEN
+        apex_collection.create_collection('EMPLOYEE_COLLECTION');
+    END IF;
+
+    -- Declare variables
+    DECLARE
+        l_image_blob BLOB;
+        l_file_name VARCHAR2(255);
+        l_mime_type VARCHAR2(100); -- Adjust the size as per your requirements
+    BEGIN
+        -- Fetch the file name and MIME type from the APEX application temporary files
+        SELECT name, mime_type
+        INTO l_file_name, l_mime_type
+        FROM apex_application_temp_files
+        WHERE name = :P3_IMAGE;
+
+        -- Fetch the BLOB content of the uploaded file
+        SELECT blob_content
+        INTO l_image_blob
+        FROM apex_application_temp_files
+        WHERE name = l_file_name;
+
+        -- Add the member to the collection
+        apex_collection.add_member(
+            p_collection_name => 'EMPLOYEE_COLLECTION',
+            p_c001            => :P3_EMPNO,
+            p_c002            => :P3_ENAME,
+            p_c003            => :P3_JOB,
+            p_c004            => :P3_SAL,
+            p_c007            => l_file_name,  -- Store file name in C007
+            p_c008            => l_mime_type,  -- Store MIME type in C008
+            p_blob001         => l_image_blob  -- Store the BLOB
+        );
+
+    EXCEPTION
+        WHEN NO_DATA_FOUND THEN
+            -- Handle the case where the file is not found
+            raise_application_error(-20001, 'File not found in temporary table');
+    END;
+
+    -- Clear the page items
+    :P3_EMPNO := NULL;
+    :P3_ENAME := NULL;
+    :P3_JOB := NULL;
+    :P3_SAL := NULL;
+    :P3_IMAGE := NULL;
+END;
