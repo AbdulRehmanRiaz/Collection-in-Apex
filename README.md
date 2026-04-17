@@ -84,7 +84,7 @@ save to table query is added to code folder in this repositry<br>
 Displays saved data from database<br>
 Image is also viewable<br>
 
-<img src="images/emp%20table%20report.png" width="700"/>
+<img src="images/Emp%20Table%20Report.png" width="700"/>
 
 
 8️⃣ Validations
