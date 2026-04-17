@@ -1,0 +1,37 @@
+BEGIN
+    -- Fetch the file name and MIME type from the APEX application temporary files
+    DECLARE
+        l_image_blob BLOB;
+        l_file_name VARCHAR2(255);
+        l_mime_type VARCHAR2(100);
+    BEGIN
+        -- Only try to update image if a new image has been uploaded
+        IF :P3_IMAGE IS NOT NULL THEN
+            SELECT name, mime_type, blob_content
+            INTO l_file_name, l_mime_type, l_image_blob
+            FROM apex_application_temp_files
+            WHERE name = :P3_IMAGE;
+
+            APEX_COLLECTION.UPDATE_MEMBER(
+                P_COLLECTION_NAME => 'EMPLOYEE_COLLECTION',
+                P_SEQ             => :P3_SEQ_ID,
+                P_C001            => :P3_EMPNO,
+                P_C002            => :P3_ENAME,
+                P_C003            => :P3_JOB,
+                P_C004            => :P3_SAL,
+                P_C007            => l_file_name,
+                P_C008            => l_mime_type,
+                P_BLOB001         => l_image_blob
+            );
+        ELSE
+            APEX_COLLECTION.UPDATE_MEMBER(
+                P_COLLECTION_NAME => 'EMPLOYEE_COLLECTION',
+                P_SEQ             => :P3_SEQ_ID,
+                P_C001            => :P3_EMPNO,
+                P_C002            => :P3_ENAME,
+                P_C003            => :P3_JOB,
+                P_C004            => :P3_SAL
+            );
+        END IF;
+    END;
+END;
